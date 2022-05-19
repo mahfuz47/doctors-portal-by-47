@@ -7,6 +7,8 @@ import Login from "./Pages/Login/Login";
 import Registration from "./Pages/Registration/Registration";
 import Navbar from "./Pages/Shared/Navbar";
 import RequireAuth from "./Pages/Shared/RequireAuth";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
           element={<Registration></Registration>}
         ></Route>
       </Routes>
+      <ToastContainer></ToastContainer>
     </div>
   );
 }

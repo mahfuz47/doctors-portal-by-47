@@ -1,25 +1,56 @@
+import React from "react";
 import { format } from "date-fns";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
 import auth from "../../firebase.init";
 import Loading from "../Shared/Loading";
 
 const BookingModal = ({ date, treatment, setTreatment }) => {
   const { _id, name, slots } = treatment;
   const [user, loading] = useAuthState(auth);
+  const formattedDate = format(date, "PP");
 
-  if (loading) {
-    return <Loading></Loading>;
-  }
   const handleBooking = (event) => {
     event.preventDefault();
     const slot = event.target.slot.value;
     console.log(_id, name, slot);
-    //
-    // to close the modal
-    //
-    setTreatment(null);
-  };
 
+    const booking = {
+      treatmentId: _id,
+      treatment: name,
+      date: formattedDate,
+      slot,
+      patient: user.email,
+      patientName: user.displayName,
+      phone: event.target.phone.value,
+    };
+    console.log(booking.date);
+    fetch("http://localhost:5000/booking", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          toast(`Appointment is set, ${formattedDate} at ${slot}`);
+        } else {
+          toast.error(
+            `Already have an Appointment on, ${data.booking?.date} at ${data.booking?.slot}`
+          );
+        }
+        //
+        // to close the modal
+        //
+
+        setTreatment(null);
+      });
+  };
+  if (loading) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
@@ -69,7 +100,7 @@ const BookingModal = ({ date, treatment, setTreatment }) => {
               className="input input-bordered w-full max-w-xs"
             />
             <input
-              type="text"
+              type="number"
               name="phone"
               placeholder="Phone Number"
               className="input input-bordered w-full max-w-xs"
