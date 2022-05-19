@@ -18,6 +18,11 @@ const Navbar = () => {
       <li>
         <Link to="/appointment">Appointment</Link>
       </li>
+      {user && (
+        <li>
+          <Link to="/dashboard">Dashboard</Link>
+        </li>
+      )}
       <li>
         <Link to="/review">Review</Link>
       </li>
@@ -29,10 +34,10 @@ const Navbar = () => {
       </li>
       <li>
         {user ? (
-          <div>
-            <div>
+          <div className="flex justify-between items-center">
+            <div className="w-8 h-8">
               <img
-                className="w-8 h-8 rounded-full"
+                className="w-full rounded-full"
                 src={user?.photoURL}
                 alt="userImage"
               />
@@ -80,6 +85,28 @@ const Navbar = () => {
       </div>
       <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>
+      </div>
+      <div className="sm:navbar-end lg:hidden">
+        <label
+          tabIndex="1"
+          for="dashboard-sidebar"
+          className="btn btn-ghost lg:hidden"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h8m-8 6h16"
+            />
+          </svg>
+        </label>
       </div>
     </div>
   );
