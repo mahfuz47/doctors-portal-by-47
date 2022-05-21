@@ -43,9 +43,7 @@ const Navbar = () => {
                 alt="userImage"
               />
             </div>
-            <button onClick={handleSignOut} className="">
-              Logout
-            </button>
+            <button onClick={handleSignOut}>Logout</button>
           </div>
         ) : (
           <Link to="/login">Login</Link>
