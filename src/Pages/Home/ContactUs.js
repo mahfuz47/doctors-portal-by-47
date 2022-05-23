@@ -7,6 +7,7 @@ const ContactUs = () => {
       style={{
         background: `url(${appointment})`,
       }}
+      className="rounded-xl"
     >
       <div>
         <div className="text-white text-center">

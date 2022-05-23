@@ -3,20 +3,24 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "../../firebase.init";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
+import Loading from "../Shared/Loading";
 
 const MyAppointment = () => {
   const [appointments, setAppointments] = useState([]);
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
-      fetch(`http://localhost:5000/booking?patient=${user.email}`, {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      fetch(
+        `https://evening-atoll-35807.herokuapp.com/booking?patient=${user.email}`,
+        {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
         .then((res) => {
           console.log(res);
           if (res.status === 401 || res.status === 403) {
@@ -31,7 +35,9 @@ const MyAppointment = () => {
         });
     }
   }, [navigate, user]);
-
+  if (loading) {
+    return <Loading></Loading>;
+  }
   return (
     <div>
       <h2>My Appointments: {appointments.length}</h2>

@@ -25,7 +25,7 @@ const BookingModal = ({ date, treatment, setTreatment, refetch }) => {
       phone: event.target.phone.value,
     };
     console.log(booking.date);
-    fetch("http://localhost:5000/booking", {
+    fetch("https://evening-atoll-35807.herokuapp.com/booking", {
       method: "POST",
       headers: {
         "content-type": "application/json",
