@@ -14,9 +14,9 @@ const AvailableAppointments = ({ date }) => {
     data: services,
     refetch,
   } = useQuery("available", () =>
-    fetch(`http://localhost:5000/available?date=${formattedDate}`).then((res) =>
-      res.json()
-    )
+    fetch(
+      `https://evening-atoll-35807.herokuapp.com/available?date=${formattedDate}`
+    ).then((res) => res.json())
   );
 
   if (isLoading) {

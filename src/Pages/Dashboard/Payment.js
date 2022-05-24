@@ -14,7 +14,7 @@ const Payment = () => {
   const { id } = useParams();
 
   const { data: appointment, isLoading } = useQuery(["booking", id], () =>
-    fetch(`http://localhost:5000/booking/${id}`, {
+    fetch(`https://evening-atoll-35807.herokuapp.com/booking/${id}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
