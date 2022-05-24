@@ -13,9 +13,7 @@ const AddDoctor = () => {
   } = useForm();
 
   const { data: services, isLoading } = useQuery("services", () =>
-    fetch("https://evening-atoll-35807.herokuapp.com/service").then((res) =>
-      res.json()
-    )
+    fetch("http://localhost:5000/service").then((res) => res.json())
   );
 
   const imageStorageKey = "c87f6e9818d0ea1bd825d43f20934855";
@@ -49,7 +47,7 @@ const AddDoctor = () => {
             img: img,
           };
           // send to your database
-          fetch("https://evening-atoll-35807.herokuapp.com/doctor", {
+          fetch("http://localhost:5000/doctor", {
             method: "POST",
             headers: {
               "content-type": "application/json",
